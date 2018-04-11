@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Page title -->
+    <title>Register | eDistrict Punjab</title>
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!--<link rel="shortcut icon" type="image/ico" href="favicon.ico" />-->
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="ui-assets/vendor/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="ui-assets/vendor/metisMenu/dist/metisMenu.css" />
+    <link rel="stylesheet" href="ui-assets/vendor/animate.css/animate.css" />
+    <link rel="stylesheet" href="ui-assets/vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="ui-assets/vendor/sweetalert/lib/sweet-alert.css" />
+    <link rel="stylesheet" href="ui-assets/vendor/offlinejs/offline.css" />
+    <link rel="stylesheet" href="ui-assets/vendor/offlinejs/english.css" />
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="ui-assets/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+    <link rel="stylesheet" href="ui-assets/fonts/pe-icon-7-stroke/css/helper.css" />
+    <link rel="stylesheet" href="ui-assets/styles/style.css">   
+
+
+    <!-- Vendor scripts -->
+    <script src="ui-assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="ui-assets/vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script src="ui-assets/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="ui-assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="ui-assets/vendor/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="ui-assets/vendor/iCheck/icheck.min.js"></script>
+    <script src="ui-assets/vendor/sparkline/index.js"></script>
+    <script src="ui-assets/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+    <script src="ui-assets/vendor/offlinejs/offline.js"></script>
+
+    <!-- App scripts -->
+    <script src="ui-assets/scripts/homer.js"></script>
+    <!-- Angular Core Scripts -->
+    <script src="angular-core/engine/angular.min.js"></script>
+    <script src="angular-core/engine/angular-route.min.js"></script>
+    <script src="angular-core/engine/angular-ngprogress.js"></script>
+    <script src="angular-core/engine/angular-upload.js"></script>
+
+    <!--System Scripts-->
+    <script src="angular-core/loginApp.js"></script>
+    <script src="angular-core/authServices.js"></script>
+    <script src="angular-core/notificationSerices.js"></script>
+
+</head>
+
+<body class="blank" ng-app="edistrictLogin">
+
+<!-- Simple splash screen-->
+<div class="splash">
+    <div class="color-line"></div>
+    <div class="splash-title">
+        <h1>eDistrict - Punjab</h1>
+        <p>Please Wait As We Setting Up Application For You.</p><img src="ui-assets/images/loading-bars.svg" width="64" height="64" />
+    </div>
+</div>
+<!--[if lt IE 7]>
+<p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="color-line"></div>
+<div class="back-link">
+    <a href="index.html" class="btn btn-primary">Back to Login</a>
+</div>
+<div class="register-container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center m-b-md">
+                <h3>eDistrict - Punjab</h3>
+                <small>Register Here To Avail eDistrict Services</small>
+            </div>
+            <div class="hpanel">
+                <div class="panel-body">
+                        <form name="registerForm" id="regForm" ng-controller="regCtrl">
+                            <div class="row">
+                            <div class="form-group col-lg-4" ng-class="{ 'has-error' : registerForm.fname.$invalid && !registerForm.fname.$pristine }">
+                                <label>First Name <span class="text-danger">*</span> <span ng-show="registerForm.fname.$invalid && !registerForm.fname.$pristine" class="text-danger">Required.</span> </label>
+                                <input name="fname"class="form-control" required ng-model="reg.firstname" placeholder="Enter Your First Name">
+                                <input type="hidden" value=" " ng-model="reg.firstnamepunjabi"/>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Middle Name </label>
+                                <input type="" value="" id="" class="form-control" ng-model="reg.middlename" placeholder="Enter Your Middle Name Here">
+                                <input type="hidden" value=" " ng-model="reg.middlenamepunjabi"/>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Last Name</label>
+                                <input type="" value="" id="" class="form-control" ng-model="reg.lastname" placeholder="Enter Your Last Name Here">
+                                <input type="hidden" value=" " ng-model="reg.lastnamepunjabi"/>
+                            </div>
+                            <div class="form-group col-lg-6" ng-class="{ 'has-error' : registerForm.password.$invalid && !registerForm.password.$pristine }">
+                                <label>Password <span class="text-danger">*</span> <span ng-show="registerForm.password.$invalid && !registerForm.password.$pristine" class="text-danger">Required.</span></label>
+                                <input type="password" required name="password" class="form-control" ng-model="reg.password" placeholder="Enter Password">
+                            </div>
+                            <div class="form-group col-lg-6" ng-class="{ 'has-error' : (registerForm.cpass.$invalid && !registerForm.cpass.$pristine) || reg.password != cpassword }">
+                                <label>Repeat Password <span class="text-danger">*</span> <span ng-show="(registerForm.cpass.$invalid && !registerForm.cpass.$pristine) || reg.password != cpassword" class="text-danger">Mismatch.</span></label>
+                                <input type="password" required name="cpass" class="form-control" ng-model="cpassword" placeholder="Confirm Password">
+                            </div>
+                            <div class="form-group col-lg-6" ng-class="{ 'has-error' : registerForm.phone.$invalid && !registerForm.phone.$pristine }">
+                                <label>Phone Number <span class="text-danger">*</span> <span ng-show="registerForm.phone.$invalid && !registerForm.phone.$pristine" class="text-danger">Invalid.</span></label>
+                                <input type="text" pattern="\d*" maxlength="10" min="1000000000" max="9999999999" required name="phone" class="form-control" ng-model="reg.mobileno" placeholder="Enter Phone Number">
+                            </div>
+                            <div class="form-group col-lg-6" ng-class="{ 'has-error' : registerForm.email.$invalid && !registerForm.email.$pristine }">
+                                <label>Email Address <span ng-show="registerForm.email.$invalid && !registerForm.email.$pristine" class="text-danger">Invalid.</span></label>
+                                <input type="email" name="email" class="form-control" ng-model="reg.username" placeholder="Enter Your eMail">
+                            </div>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-success" ng-click="regUser()" ng-disabled="registerForm.$invalid || reg.password != cpassword">Register</button>
+                                <button class="btn btn-default">Cancel</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <strong>eDistrict</strong> - Punjab <br /> 2015 Copyright Govt. of Punjab
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

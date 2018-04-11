@@ -1,0 +1,171 @@
+<div class="normalheader transition animated fadeIn small-header">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li>
+                        <a href="/actor/home">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#">Agriculture Services</a>
+                    </li>
+                    <li class="active">
+                        <span>Pending Application</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Pending Application - {{appID_review}}
+            </h2>
+            <small>Issuance/Renewal of Seed Distribution License.</small>
+        </div>
+    </div>
+</div>
+
+<div class="normalheader transition animated fadeIn">
+    <div class="animated-panel fadeIn" style="animation-delay: 0.4s; padding-bottom: 50px;">
+        <div class="well well-sm">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <strong>Application Number</strong> - {{appID_review}}
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <strong>Current Stage: </strong> {{stage_review}}
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <span ng-if="status_review == 'P'" class="label label-warning">Pending</span><span ng-if="status_review == 'A'" class="label label-success">Approved</span><span ng-if="status_review == 'R'" class="label label-danger">Rejected</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <fieldset>
+                        <legend>Applicant's Details</legend>
+                        <div class="form-group col-lg-12">
+                            <label>Applicant's Name</label>
+                            <input class="form-control" readonly ng-model="personal_details.name">
+                        </div>
+                        <div class="form-group col-lg-12">
+                            <label>Applicant's Address</label>
+                            <textarea class="form-control" readonly>{{personal_details.applicant_address}}</textarea>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>District</label>
+                            <input class="form-control" readonly ng-model="address_details.district_name" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Block</label>
+                            <input class="form-control" readonly ng-model="address_details.block_name" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Ward</label>
+                            <input class="form-control" readonly ng-model="address_details.ward_number" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Pincode</label>
+                            <input class="form-control" readonly ng-model="address_details.pincode" />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Application Details</legend>
+                        <div class="form-group">
+                            <label>Service Applied For</label>
+                            <input class="form-control" readonly ng-model="personal_details.service_name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Firm Name</label>
+                            <input class="form-control" readonly ng-model="application_details.firm_name">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label>Operation Type</label>
+                                    <input class="form-control" readonly ng-model="application_details.firm_operation_type">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label>Firm Type</label>
+                                    <input class="form-control" readonly ng-model="application_details.firm_type">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label>Applicant's Capacity</label>
+                                    <input class="form-control" readonly ng-model="application_details.applicants_capacity">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label>
+                                        Was the applicant ever convicted under the essential commodities
+                                        act 1955 (10 of 1955)?
+                                    </label>
+                                    <input class="form-control" readonly ng-model="application_details.is_convicted_under_1955">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="application_details.is_convicted_under_1955 == 'Y'">
+                            <label>Details</label>
+                            <input class="form-control" ng-model="application_details.conviction_details">
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Seeds to be handled
+                        </legend>
+                        <div class="form-group">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-xs-1">S. No.</th>
+                                        <th>Supplier Name</th>
+                                        <th>Producer Name</th>
+                                        <th>Commodity Name</th>
+                                        <th>Added On</th>
+                                        <th>Valid Till</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="i in seeds">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{i.supplier_name}}</td>
+                                        <td>{{i.producer_name}}</td>
+                                        <td>{{i.commodity_name}}</td>
+                                        <td>{{i.added_on}}</td>
+                                        <td>{{i.valid_upto}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Place of Business for Storage
+                        </legend>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Storage Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="i in storages">
+                                    <td>{{i.address_of_store}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            List of Uploaded Documents
+                        </legend>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="p in images">{{p.doc_title}} - <a href="{{d_u}}{{p.doc_path}}" target="_blank">View</a></li>
+                        </ul>
+                    </fieldset>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

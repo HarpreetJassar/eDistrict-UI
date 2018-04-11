@@ -1,0 +1,475 @@
+<div class="normalheader transition animated fadeIn small-header">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li>
+                        <a href="/citizen/home">Citizen</a>
+                    </li>
+                    <li>
+                        <a href="#">Agriculture Services</a>
+                    </li>
+                    <li class="active">
+                        <span>Apply Service</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Department of Agriculture
+            </h2>
+            <small>Issuance/Renewal of Fertilizer Distribution License.</small>
+        </div>
+    </div>
+</div>
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row" style="padding-bottom: 50px;">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    Application Form
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="well well-sm">
+                                <p class="small m-t-md">
+                                    <strong>{{service_name}}</strong>
+                                </p>
+                                <p>
+                                    Following is the list of documents required. Kindly keep them ready for step 3.
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-repeat="d in docs">{{d.doc_title}}
+                                            <span ng-if="d.is_mandatory == 'Y'" class="text-danger">Required</span>
+                                        </li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <form name="agriFertilizerForm">
+
+                                <div class="m-b-md" id="wizardControl">
+
+                                    <a class="btn btn-primary wizard-step" id="tabStepOne" href="javascript:void(0);">Step 1 - Verify Personal Information</a>
+                                    <a class="btn btn-default wizard-step" id="tabStepTwo" href="javascript:void(0);">Step 2 - Enter Application</a>
+                                    <a class="btn btn-default wizard-step" id="tabStepThree" href="javascript:void(0);">Step 3 - Upload Documents</a>
+
+                                </div>
+                                <hr />
+                                <div class="tab-content">
+                                    <div id="step1" class="p-m tab-pane active">
+                                        <fieldset>
+                                            <legend>
+                                                Applicant's Details
+                                            </legend>
+                                            <div class="form-group">
+                                                <label>Applicant Name
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input class="form-control" required readonly ng-model="name" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Applicant Address
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <textarea class="form-control" required ng-model="app.Applicantaddress" readonly></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <p>
+                                                    <strong>Note: </strong>In case you need to change the address and/or any personal
+                                                    details being reflected, kindly update them in the
+                                                    <em>Profile</em> Section.</p>
+                                            </div>
+                                        </fieldset>
+                                        <div class="form-group text-right m-t-xs">
+                                            <a class="btn btn-primary" href="#step2" target="_self" data-tab="#tabStepTwo" data-toggle="tab">Next</a>
+                                        </div>
+                                    </div>
+
+                                    <div id="step2" class="p-m tab-pane">
+                                        <fieldset>
+                                            <legend>
+                                                Application Details
+                                            </legend>
+                                            <div class="form-group" ng-class="{ 'has-error' : agriFertilizerForm.firm_name.$invalid && !agriFertilizerForm.firm_name.$pristine }">
+                                                <label>Firm Name
+                                                    <span class="text-danger">*</span>
+                                                    <span ng-show="agriFertilizerForm.firm_name.$invalid && !agriFertilizerForm.firm_name.$pristine"
+                                                        class="text-danger">Required</span>
+                                                </label>
+                                                <input class="form-control" required ng-model="app.Firmname" name="firm_name" placeholder="Enter Firm Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriFertilizerForm.dist.$invalid && !agriFertilizerForm.dist.$pristine }">
+                                                        <label>District
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.dist.$invalid && !agriFertilizerForm.dist.$pristine"
+                                                                class="text-danger">Required.</span>
+                                                        </label>
+                                                        <select class="form-control" required name="dist" ng-model="app.firm_district">
+                                                            <option value="">-- Choose One --</option>
+                                                            <option ng-repeat="d in districts" value="{{d.district_code}}">{{d.district_name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriFertilizerForm.sub_dist.$invalid && !agriFertilizerForm.sub_dist.$pristine }">
+                                                        <label>Sub District
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.sub_dist.$invalid && !agriFertilizerForm.sub_dist.$pristine"
+                                                                class="text-danger">Required.</span>
+                                                        </label>
+                                                        <select class="form-control" required name="sub_dist" ng-model="app.firm_sub_district">
+                                                            <option value="">-- Choose One --</option>
+                                                            <option ng-repeat="d in sub_districts" value="{{d.sub_district_code}}">{{d.sub_district_name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriFertilizerForm.block.$invalid && !agriFertilizerForm.block.$pristine }">
+                                                        <label>Blocks
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.block.$invalid && !agriFertilizerForm.block.$pristine"
+                                                                class="text-danger">Required.</span>
+                                                        </label>
+                                                        <select class="form-control" name="block" required ng-model="app.firm_block">
+                                                            <option value="">-- Choose One --</option>
+                                                            <option ng-repeat="b in blocks" value="{{b.block_code}}">{{b.block_name}}</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriFertilizerForm.region.$invalid && !agriFertilizerForm.region.$pristine }">
+                                                        <label>Region
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.region.$invalid && !agriFertilizerForm.region.$pristine"
+                                                                class="text-danger">Required.</span>
+                                                        </label>
+                                                        <select class="form-control" name="region" required ng-model="app.firm_region">
+                                                            <option value="">-- Choose One --</option>
+                                                            <option value="Rural">Rural</option>
+                                                            <option value="Urban">Urban</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriFertilizerForm.village.$invalid && !agriFertilizerForm.village.$pristine }" ng-if="app.firm_region == 'Rural'">
+                                                        <label>Village
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.village.$invalid && !agriFertilizerForm.village.$pristine"
+                                                                class="text-danger">Required.</span>
+                                                        </label>
+                                                        <select class="form-control" name="village" required ng-model="app.firm_village">
+                                                            <option value="">-- Choose One --</option>
+                                                            <option ng-repeat="v in villages" value="{{v.village_code}}">{{v.village_name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriFertilizerForm.pin.$invalid && !agriFertilizerForm.pin.$pristine }">
+                                                        <label>Pincode
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.pin.$invalid && !agriFertilizerForm.pin.$pristine"
+                                                                class="text-danger">Valid Pin.</span>
+                                                        </label>
+                                                        <input class="form-control" type="number" max-length="6" name="pin" maxlength="6" required ng-model="app.firm_pincode" placeholder="Enter Pincode Here"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-4" ng-class="{ 'has-error' : agriFertilizerForm.op.$invalid && !agriFertilizerForm.op.$pristine }">
+                                                        <label>Operation Type
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.op.$invalid && !agriFertilizerForm.op.$pristine"
+                                                                class="text-danger">Required</span>
+                                                        </label>
+                                                        <select class="form-control" required ng-model="app.Firmoperationtype" name="op">
+                                                            <option value="">--Choose One--</option>
+                                                            <option value="Retail">Retail</option>
+                                                            <option value="Wholesale">Wholesale</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-4" ng-class="{ 'has-error' : agriFertilizerForm.ft.$invalid && !agriFertilizerForm.ft.$pristine }">
+                                                        <label>Firm Type
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.ft.$invalid && !agriFertilizerForm.ft.$pristine"
+                                                                class="text-danger">Required</span>
+                                                        </label>
+                                                        <!--<input class="form-control" required placeholder="Enter Firm Type" name="ft" required type="text" ng-model="app.Firmtype">-->
+                                                        <select class="form-control" required ng-model="app.Firmtype" name="ft">
+                                                            <option value="">--Choose One--</option>
+                                                            <option value="HUF">HUF Concern</option>
+                                                            <option value="Limited">Limited</option>
+                                                            <option value="Partnership">Partnership</option>
+                                                            <option value="Proprietorship">Proprietorship</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-4" ng-class="{ 'has-error' : agriFertilizerForm.ac.$invalid && !agriFertilizerForm.ac.$pristine }">
+                                                        <label>Applicant's Capacity
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.ac.$invalid && !agriFertilizerForm.ac.$pristine"
+                                                                class="text-danger">Required</span>
+                                                        </label>
+                                                        <!--<input class="form-control" required placeholder="Capacity" name="ac" required type="text" ng-model="app.Applicantscapacity">-->
+                                                        <select class="form-control" required ng-model="app.Applicantscapacity" name="ac">
+                                                            <option value="">--Choose One--</option>
+                                                            <option value="Karta">Karta</option>
+                                                            <option value="Manager">Manager</option>
+                                                            <option value="Partner">Partner</option>
+                                                            <option value="Proprietor">Proprietor</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-4" ng-class="{ 'has-error' : agriFertilizerForm.ic.$invalid && !agriFertilizerForm.ic.$pristine }">
+                                                        <label>Was the applicant ever convicted under the essential commodities
+                                                            act 1955 (10 of 1955)?
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.ic.$invalid && !agriFertilizerForm.ic.$pristine"
+                                                                class="text-danger">Required</span>
+                                                        </label>
+                                                        <select class="form-control" required required ng-model="app.Isconvictedunder1955" name="ic">
+                                                            <option value="">--Choose One--</option>
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-if="app.Isconvictedunder1955 == 'Y'">
+                                                <div class="row">
+                                                    <div class="col-sm-12" ng-class="{ 'has-error' : agriFertilizerForm.cd.$invalid && !agriFertilizerForm.cd.$pristine }">
+                                                        <label>Details
+                                                            <span class="text-danger">*</span>
+                                                            <span ng-show="agriFertilizerForm.cd.$invalid && !agriFertilizerForm.cd.$pristine"
+                                                                class="text-danger">Required</span>
+                                                        </label>
+                                                        <input class="form-control" required placeholder="Details" type="text" name="cd" ng-model="app.Convictiondetails">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend>
+                                                Fertilizer Details
+                                                <span class="text-danger">*</span>
+                                            </legend>
+                                            <div class="form-group">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Manufacturer</th>
+                                                                <th>Fertilizer Name</th>
+                                                                <th>Source</th>
+                                                                <th>Brand</th>
+                                                                <th>Added On</th>
+                                                                <th>Valid Till</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="i in app.FertilizeDetails">
+                                                                <td>{{i.manufacturer}}</td>
+                                                                <td>{{i.fertilizer_name}}</td>
+                                                                <td>{{i.source}}</td>
+                                                                <td>{{i.brand}}</td>
+                                                                <td>{{i.added_on}}</td>
+                                                                <td>{{i.valid_upto}}</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input class="form-control input-sm" ng-model="manufacturer" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control input-sm" ng-model="fertilizer_name" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control input-sm" ng-model="source" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control input-sm" ng-model="brand" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control input-sm" id="datapicker2" ng-model="added_on" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control input-sm" id="datapicker" ng-model="valid_till" />
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn btn-info btn-xs" ng-click="addTB1()" type="button" ng-disabled="supplier == '' || producer == '' || commodity == '' || added_on == '' || valid_till == ''">Add</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend>
+                                                Place of Business for Storage
+                                                <span class="text-danger">*</span>
+                                            </legend>
+                                            <div class="form-group">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Storage Address</th>
+                                                                <th class="col-xs-1"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="i in app.Storagedetails">
+                                                                <td>{{i.address_of_store}}</td>
+                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input class="form-control input-sm" ng-model="storage" />
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn btn-info btn-xs" ng-click="addTB2()" type="button" ng-disabled="storage == ''">Add</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="text-right m-t-xs">
+                                            <a class="btn btn-default prev" href="#step1" data-toggle="tab" data-tab="#tabStepOne" target="_self">Previous</a>
+                                            <a class="btn btn-primary2" href="#step3" data-toggle="tab" data-tab="#tabStepThree" ng-disabled="agriFertilizerForm.$invalid"
+                                                ng-click="add()" target="_self">Submit &amp; Add Docs</a>
+                                        </div>
+                                    </div>
+                                    <div id="step3" class="tab-pane">
+                                        <fieldset>
+                                            <legend>
+                                                Required Documents
+                                            </legend>
+                                            <div class="form-group">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="col-xs-7">Description</th>
+                                                                <th class="col-xs-5">Upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Self Declaration</strong>
+                                                                    <span class="text-danger"> Mendatory</span>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="selfDeclaration" type="file" ng-model="file.selfDeclaration" base-sixty-four-input/>
+                                                                    <p id="p_selfDeclaration"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Residence Proof</strong>
+                                                                    <span class="text-danger"> Mendatory</span>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="residenceProof" type="file" ng-model="file.residenceProof" base-sixty-four-input/>
+                                                                    <p id="p_residenceProof"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Declaration</strong>
+                                                                    <span class="text-danger"> Mendatory</span>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="declaration" type="file" ng-model="file.declaration" base-sixty-four-input/>
+                                                                    <p id="p_declaration"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Form A/C</strong>
+                                                                    <span class="text-danger"> Mendatory</span>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="formac" type="file" ng-model="file.formac" base-sixty-four-input/>
+                                                                    <p id="p_formac"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Authority To Sign Document</strong>
+                                                                    <span class="text-danger">
+                                                                        Mendatory</span>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="authSignDoc" type="file" ng-model="file.authSignDoc" base-sixty-four-input/>
+                                                                    <p id="p_authSignDoc"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Map of Premises with proof of ownership or Rent Deed</strong>
+                                                                    <span class="text-danger"> Mendatory</span>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="map" type="file" ng-model="file.map" base-sixty-four-input/>
+                                                                    <p id="p_map"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Principal Certificates from Companies</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="cirtFromCompanies" type="file" ng-model="file.cirtFromCompanies" base-sixty-four-input/>
+                                                                    <p id="p_cirtFromCompanies"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Partnership deed/Memorandum of Article</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="deedMemorandum" type="file" ng-model="file.deedMemorandum" base-sixty-four-input/>
+                                                                    <p id="p_deedMemorandum"></p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Proof of Sales &amp; Stock report of current license</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="proofOfSales" type="file" ng-model="file.proofOfSales" base-sixty-four-input/>
+                                                                    <p id="p_proofOfSales"></p>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <div class="text-right m-t-xs">
+                                            <a class="btn btn-primary2" href="javascript:void(0)" target="_self" ng-click="upload()">Upload</a>
+                                            <a class="btn btn-primary2" href="javascript:void(0)" target="_self" ng-click="spay()">Confirm Pay</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

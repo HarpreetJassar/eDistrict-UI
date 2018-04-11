@@ -1,0 +1,11 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <h2 class="font-light m-b-xs text-center">eDistrict Administration Dashboard</h2>
+            <hr />
+            <div ng-repeat="m in main" class="col-lg-2" style="margin-top: 5px;">
+                <a class="btn btn-block btn-primary" href="{{m.item_redirect_url}}">{{m.displayName}}</a>
+            </div>
+        </div>
+    </div>
+</div>

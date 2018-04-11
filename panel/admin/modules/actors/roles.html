@@ -1,0 +1,186 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="/admin/home">Dashboard</a></li>
+                    <li>
+                        <span>Actors</span>
+                    </li>
+                    <li class="active">
+                        <span>Roles</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Actor Roles Mapping
+            </h2>
+            <small>Create, Edit, Delete Actor Roles For eDistrict, Punjab.</small>
+        </div>
+    </div>
+</div>
+
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    Add a new actor roles form 
+                </div>
+                <div class="panel-body">
+                    <form name="addActorRoleMapForm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Departments</label>
+                                    <select class="form-control" required ng-model="depart">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="d in departs" value="{{d.departmentID}}">{{d.department_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>District</label>
+                                    <select class="form-control" required ng-model="dist">
+                                        <option value="">--Choose One--</option>
+                                        <option ng-repeat="d in dists" value="{{d.districtID}}">{{d.district_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Offices</label>
+                                    <select class="form-control" required ng-model="office">
+                                        <option value="">--Choose One--</option>
+                                        <option ng-repeat="o in offices" value="{{o.officeID}}">{{o.office_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Users</label>
+                                    <select class="form-control" required ng-model="ac_role.userid">
+                                        <option value="">--Choose One--</option>
+                                        <option ng-repeat="d in actors" value="{{d.userID}}">{{d.user_name}} ({{(d.desig_name)}})</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Services</label>
+                                    <select class="form-control" required ng-model="ac_role.serviceid">
+                                        <option value="">--Choose One--</option>
+                                        <option ng-repeat="s in services" value="{{s.serviceID}}" ng-if="s.child_count == 0">{{s.service_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Roles</label>
+                                    <select class="form-control" required ng-model="ac_role.roleid">
+                                        <option value="">--Choose One--</option>
+                                        <option ng-repeat="r in roles" value="{{r.roleID}}">{{r.role_title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary2" ng-click="addActorRoleMap()" ng-disabled="addActorRoleMapForm.$invalid">Add New Map</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Click "Add New Map" To Insert 
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row" style="padding-bottom: 50px;">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <select class="form-control" required ng-model="serviceid">
+                                    <option value="">-- Select Service --</option>
+                                    <option ng-repeat="d in services" value="{{d.serviceID}}" ng-if="d.isPrivate == 'N'">{{d.service_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                    <input id="example-input1-group2" ng-model="search.role_title" class="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="Search By Service Name" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th class="text-center">S. No.</th>
+                                <th class="text-center">Role Name</th>
+                                <th class="text-center">Starting Point ?</th>
+                                <th class="text-center">Service Name</th>
+                                <th class="text-center">Created On</th>
+                                <th class="text-center col-xs-2"></th>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr ng-repeat="item in Roles | filter:search">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.role_title}}</td>
+                                    <td ng-if="item.role_position_in_flow == '0'">Yes</td>
+                                    <td ng-if="item.role_position_in_flow == '1'">No</td>
+                                    <td>{{item.service_name}}</td>
+                                    <td>{{item.created_on | date : format : "medium"}}</td>
+                                    <td>
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <button class="btn btn-primary btn-xs" ng-click="redirect(item.roleID, item.role_title)">
+                                                    Manage Actions
+                                            </button>
+                                            <button class="btn btn-info btn-xs">
+                                                    Edit
+                                            </button>
+                                            <button class="btn btn-danger btn-xs">
+                                                    Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Add A Sub Service</h4>
+                <small class="font-bold">Add A Sub Service To <strong>{{ss_name}}</strong></small>
+            </div>
+            <div class="modal-body">
+                <form name="addSubServiceForm">
+                    <div class="form-group">
+                        <label>Sub Service Name</label>
+                        <input class="form-control" required ng-model="ss.servicename" placeholder="Enter name of the Sub Service"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="addAction()" ng-disabled="addSubServiceForm.$invalid">Add Sub Service</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+    
+    

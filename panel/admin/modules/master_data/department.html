@@ -1,0 +1,105 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="/admin/home">Dashboard</a></li>
+                    <li>
+                        <span>Master Data</span>
+                    </li>
+                    <li class="active">
+                        <span>Departments</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Department Management Console
+            </h2>
+            <small>Create, Edit, Delete Departments For eDistrict, Punjab.</small>
+        </div>
+    </div>
+</div>
+
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    Add a new department form 
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" name="addDeptForm">
+                        <div class="form-group">
+                            <label>Dept. Name</label>
+                            <input class="form-control" required ng-model="dept.departmentname" placeholder="Enter name of the Dept."/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary2" ng-click="addDept()" ng-disabled="addDeptForm.$invalid">Add New Department</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Click "Add New Department" To Insert 
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row" style="padding-bottom: 50px;">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-search"></i></button>
+                            </span>
+                            <input id="example-input1-group2" ng-model="search.department_name" class="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="Search By Department Name" type="text">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th class="text-center col-xs-1">S. No.</th>
+                                <th class="text-center">Department Name</th>
+                                <th class="text-center">Created On</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center col-xs-3"></th>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr ng-repeat="item in departs | filter:search" ng-class="{success: item.isActive == 'Y'}" ng-class="{danger: item.isActive == 'N'}">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.department_name}}</td>
+                                    <td>{{item.created_on | date : format : "medium"}}</td>
+                                    <td ng-if="item.isActive=='N'">Inactive</td>
+                                    <td ng-if="item.isActive=='Y'">Active</td>
+                                    <td>
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <button class="btn btn-primary2 btn-xs" ng-click="redirectOffice(item.departmentID, item.department_name)">
+                                                Offices
+                                            </button>
+                                            <button class="btn btn-primary btn-xs" ng-click="redirect(item.departmentID, item.department_name)">
+                                                Designation
+                                            </button>
+                                            <button class="btn btn-info btn-xs">
+                                                Edit
+                                            </button>
+                                            <button class="btn btn-danger btn-xs">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+

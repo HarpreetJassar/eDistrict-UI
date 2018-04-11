@@ -1,0 +1,106 @@
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    For Office Use
+                </div>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <img src="../../ui-assets/images/punjab.png" height="150px" />
+                    </div>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-xs-2">
+                                    <strong>1. SERVICE ASKED FOR </strong>
+                                </td>
+                                <td>
+                                    {{reciept_data.service_asked_for}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2">
+                                    <strong>2. APPLICATION NUMBER </strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{appID}}
+                                </td>
+                                <td class="col-xs-2">
+                                    <strong>3. DATE </strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{reciept_data.application_date}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2">
+                                    <strong>4. NAME OF THE APPLICANT </strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{reciept_data.first_name}} {{reciept_data.middle_name}} {{reciept_data.last_name}}
+                                </td>
+                                <td class="col-xs-2">
+                                    <strong>5. So/Do/Wo </strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{reciept_data.father_first_name}} {{reciept_data.father_middle_name}} {{reciept_data.father_last_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2">
+                                    <strong>6. ADDRESS </strong>
+                                </td>
+                                <td>
+                                    {{reciept_data.address_line_1}}, {{reciept_data.address_line_2}}, {{reciept_data.address_line_3}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2">
+                                    <strong>7. MOBILE NUMBER </strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{reciept_data.mobile_no}}
+                                </td>
+                                <td class="col-xs-2">
+                                    <strong>8. GOVT. FEES </strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{reciept_data.govt_charges}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2">
+                                    <strong>9. FACILITATION CHARGES</strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{reciept_data.facilitation_charges}}
+                                </td>
+                                <td class="col-xs-2">
+                                    <strong>10. TOTAL CHARGES </strong>
+                                </td>
+                                <td class="col-xs-4">
+                                    {{reciept_data.total_charges}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-xs-2">
+                                    <strong>11. DESIGNATED OFFICER</strong>
+                                </td>
+                                <td>
+                                    {{reciept_data.desig_name}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-lg-12" style="padding-top: 10px;">
+                        <strong>NOTE: </strong>This reciept was generated online by eDistrict Citizen Module.
+                    </div>
+                    <div class="col-lg-12" style="padding-top: 10px;">
+                        <button class="btn btn-primary pull-right" type="button" onclick="window.print()"><i class="glyphicon glyphicon-print"></i> Print Reciept</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

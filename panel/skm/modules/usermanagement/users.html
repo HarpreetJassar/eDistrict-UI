@@ -1,0 +1,170 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="/skm/home">Dashboard</a></li>
+                    <li>
+                        <span>User</span>
+                    </li>
+                    <li class="active">
+                        <span>Management</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                User Management Console
+            </h2>
+            <small>Create, Edit, Delete Centers For SKM User, Punjab.</small>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    Add a new User form 
+                </div>
+                <div class="panel-body">
+                    <form name="addUserForm">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4" ng-show="user_type == 'skm'" ng-class="{ 'has-error' : addUserForm.center.$invalid && !addUserForm.center.$pristine }">
+                                    <label>Center <span class="text-danger">*</span> <span ng-if="user.centerID == ''" class="text-danger">Required.</span></label>
+                                    <select class="form-control" name="center" ng-model="user.centerID">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="c in centers" value="{{c.centerID}}">{{c.center_address}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4" ng-class="{ 'has-error' : addUserForm.username.$invalid && !addUserForm.username.$pristine }">
+                                    <label>Username <span class="text-danger">*</span> <span ng-show="addUserForm.username.$invalid && !addUserForm.username.$pristine" class="text-danger">Required.</span></label>
+                                    <input class="form-control" placeholder="Enter Username" required ng-model="user.user_name" name="username">
+                                </div>
+                                <div class="col-lg-4" ng-class="{ 'has-error' : addUserForm.password.$invalid && !addUserForm.password.$pristine }">
+                                    <label>Password <span class="text-danger">*</span> <span ng-show="addUserForm.password.$invalid && !addUserForm.password.$pristine" class="text-danger">Required.</span></label>
+                                    <input class="form-control" type="password" placeholder="Enter Password" required ng-model="user.password" name="password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-4" ng-class="{ 'has-error' : addUserForm.fname.$invalid && !addUserForm.fname.$pristine }">
+                                    <label>First Name <span class="text-danger">*</span> <span ng-show="addUserForm.fname.$invalid && !addUserForm.fname.$pristine" class="text-danger">Required.</span></label>
+                                    <input class="form-control" placeholder="Enter First Name" required ng-model="user.f_name" name="fname">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Middle Name</label>
+                                    <input class="form-control" ng-model="user.m_name" placeholder="Enter Middle Name"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>Last Name</label>
+                                    <input class="form-control" ng-model="user.l_name" placeholder="Enter Last Name"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : addUserForm.add.$invalid && !addUserForm.add.$pristine }">
+                            <div class="row">
+                                <div class="col-lg-4" ng-class="{ 'has-error' : addUserForm.mobile.$invalid && !addUserForm.mobile.$pristine }">
+                                    <label>Phone Number <span class="text-danger">*</span> <span ng-show="addUserForm.mobile.$invalid && !addUserForm.mobile.$pristine" class="text-danger">Invalid &amp; Required.</span></label>
+                                    <input type="number" min="1000000000" max="9999999999" class="form-control" placeholder="Enter Mobile Number" required ng-model="user.mobile_no" name="mobile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary2" type="button" ng-click="addUser()" ng-disabled="addUserForm.$invalid || (!user.centerID && user_type == 'skm')">Add New User</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Click "Add New User" To Insert 
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                    <input id="example-input1-group2" ng-model="search.user_name" class="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="Search By Username" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                    <input id="example-input1-group2" ng-model="search.mobile_no" class="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="Search By Mobile Number" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th class="col-xs-1">S. No.</th>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th class="col-xs-2">Created On</th>
+                                <th class="col-xs-1"></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="u in users | filter:search">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{u.user_name}}</td>
+                                    <td>{{u.mobile_no}}</td>
+                                    <td>{{u.f_name}} {{u.m_name}} {{u.l_name}}</td>
+                                    <td>{{u.created_date | date : format : "medium"}}</td>
+                                    <td>
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <button class="btn btn-danger btn-xs">
+                                                    Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Add A Sub Service</h4>
+                <small class="font-bold">Add A Sub Service To <strong>{{ss_name}}</strong></small>
+            </div>
+            <div class="modal-body">
+                <form name="addSubServiceForm">
+                    <div class="form-group">
+                        <label>Sub Service Name</label>
+                        <input class="form-control" required ng-model="ss.servicename" placeholder="Enter name of the Sub Service"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="addSubService()" ng-disabled="addSubServiceForm.$invalid">Add Sub Service</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+

@@ -1,0 +1,165 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="/admin/home">Dashboard</a></li>
+                    <li>
+                        <span>Services</span>
+                    </li>
+                    <li class="active">
+                        <span>Actions</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Management for <strong>{{name}}</strong>
+            </h2>
+            <small>Create, Edit, Delete Roles &amp; Actions For eDistrict, Punjab.</small>
+        </div>
+    </div>
+</div>
+
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    Add a new Action form
+                </div>
+                <div class="panel-body">
+                    <form name="addActionForm">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Action Title</label>
+                                    <input class="form-control" required ng-model="action.actiontitle" placeholder="Enter title of the action"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Action Type</label>
+                                    <select class="form-control" required ng-model="action.actiontype">
+                                        <option value="">-- Choose One --</option>
+                                        <option value="R">Redirects to another role</option>
+                                        <option value="T">Terminates service request</option>
+                                        <option value="S">Sends request back to source</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Next Stage</label>
+                                    <select class="form-control" required ng-model="action.nextstageid">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="s in stages" value="{{s.stageID}}">{{s.stage_title}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" ng-if="action.actiontype == 'R'">
+                                    <label>Redirects To</label>
+                                    <select class="form-control" required ng-model="action.refroleid">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="r in Roles" value="{{r.roleID}}" ng-if="r.roleID != role">{{r.role_title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Signature Required</label>
+                                    <select class="form-control" required ng-model="action.issignaturerequired">
+                                        <option value="">-- Choose One --</option>
+                                        <option value="Y">Yes</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Stages</label>
+                                    <select class="form-control" required ng-model="action.stageid">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="s in stages" value="{{s.stageID}}">{{s.stage_title}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Send SMS</label>
+                                    <select class="form-control" required ng-model="action.sendsmstocitizen">
+                                        <option value="">-- Choose One --</option>
+                                        <option value="Y">Yes</option>
+                                        <option value="N">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" ng-if="action.sendsmstocitizen == 'Y'">
+                                    <label>SMS Text</label>
+                                    <input class="form-control" required ng-model="action.smstext" placeholder="Enter the SMS Text"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary2" ng-click="addAction()" ng-disabled="addActionForm.$invalid">Add New Action</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Click "Add New Action" To Insert 
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row" style="padding-bottom: 50px;">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                    <input id="example-input1-group2" ng-model="search.action_title" class="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="Search By Action Name" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th class="text-center">S. No.</th>
+                                <th class="text-center">Action Name</th>
+                                <th class="text-center">Action Type</th>
+                                <th class="text-center">Signature Required</th>
+                                <th class="text-center">SMS Text</th>
+                                <th class="text-center">Created On</th>
+                                <th class="text-center col-xs-1"></th>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr ng-repeat="item in Actions | filter:search">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.action_title}}</td>
+                                    <td ng-if="item.action_type == 'R'">Redirects to another role</td>
+                                    <td ng-if="item.action_type == 'T'">Terminates service request</td>
+                                    <td ng-if="item.action_type == 'S'">Sends request back to source</td>
+                                    <td>{{item.is_signature_required}}</td>
+                                    <td ng-if="item.send_sms_to_citizen == 'Y'">{{item.sms_text}}</td>
+                                    <td ng-if="item.send_sms_to_citizen == 'N'">-- NIL --</td>
+                                    <td>{{item.created_on | date : format : "medium"}}</td>
+                                    <td>
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <button class="btn btn-info btn-xs">
+                                                    Edit
+                                            </button>
+                                            <button class="btn btn-danger btn-xs">
+                                                    Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+    
+    

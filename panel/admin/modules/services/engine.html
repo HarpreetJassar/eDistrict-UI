@@ -1,0 +1,135 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="/admin/home">Dashboard</a></li>
+                    <li>
+                        <span>Services</span>
+                    </li>
+                    <li class="active">
+                        <span>Management</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Service Engine Console
+            </h2>
+            <small>Create, Edit, Delete Services For eDistrict, Punjab.</small>
+        </div>
+    </div>
+</div>
+
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    Add a new Service form 
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" name="addServiceForm">
+                        <div class="form-group">
+                            <label>Dept. Name</label>
+                            <select class="form-control" required ng-model="service.departmentid">
+                                <option value="">-- Choose One --</option>
+                                <option ng-repeat="d in departs" value="{{d.departmentID}}">{{d.department_name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Service Name</label>
+                            <input class="form-control" required ng-model="service.servicename" placeholder="Enter name of the Service"/>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary2" ng-click="addService()" ng-disabled="addServiceForm.$invalid">Add New Service</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Click "Add New Service" To Insert 
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<div class="normalheader transition animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-search"></i></button>
+                            </span>
+                            <input id="example-input1-group2" ng-model="search.service_name" class="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="Search By Service Name" type="text">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th class="text-center">Service Name</th>
+                                <th class="text-center">Parent Service</th>
+                                <th class="text-center">Created On</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center col-xs-2"></th>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr ng-repeat="item in services | filter:search" ng-class="{success: item.isActive == 'Y'}" ng-class="{danger: item.isActive == 'N'}" ng-if="item.isPrivate == 'N'">
+                                    <td>{{item.service_name}}</td>
+                                    <td ng-if="item.parent_service != null">{{item.parent_service}}</td>
+                                    <td ng-if="item.parent_service == null">-</td>
+                                    <td>{{item.created_on | date : format : "medium"}}</td>
+                                    <td ng-if="item.isActive=='N'">Inactive</td>
+                                    <td ng-if="item.isActive=='Y'">Active</td>
+                                    <td>
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <button class="btn btn-primary btn-xs" ng-click="openSubService(item.serviceID, item.department_id, item.service_name)">
+                                                 Add Sub-Service
+                                            </button>
+                                            <button class="btn btn-info btn-xs">
+                                                 Edit
+                                            </button>
+                                            <button class="btn btn-danger btn-xs">
+                                                 Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Add A Sub Service</h4>
+                <small class="font-bold">Add A Sub Service To <strong>{{ss_name}}</strong></small>
+            </div>
+            <div class="modal-body">
+                <form name="addSubServiceForm">
+                    <div class="form-group">
+                        <label>Sub Service Name</label>
+                        <input class="form-control" required ng-model="ss.servicename" placeholder="Enter name of the Sub Service"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="addSubService()" ng-disabled="addSubServiceForm.$invalid">Add Sub Service</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+

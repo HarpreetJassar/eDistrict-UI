@@ -1,0 +1,39 @@
+#side-menu li a {
+    padding: 10px 20px !important;
+}
+
+.form-control {
+    border-color: #727273 !important;
+}
+
+.navbar-form-custom {
+    width: 400px !important;
+    max-width: 90% !important;
+}
+
+fieldset {
+    border: solid 1px #DDD;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+fieldset legend {
+    display: inline-block;
+    border-bottom: none;
+    width: auto;
+    padding-right: 10px;
+    color: #3498db;
+    font-size: 18px;
+    line-height: 22px;
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 0px;
+    padding:0px;
+    border:0px;
+}
+
+fieldset legend.sm {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 600;
+}

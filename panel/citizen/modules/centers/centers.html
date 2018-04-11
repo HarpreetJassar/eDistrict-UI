@@ -1,0 +1,143 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel">
+        <div class="panel-body">
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="/skm/home">Dashboard</a></li>
+                    <li>
+                        <span>Centers</span>
+                    </li>
+                    <li class="active">
+                        <span>Management</span>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="font-light m-b-xs">
+                Center Management Console
+            </h2>
+            <small>Create, Edit, Delete Centers For SKM eDistrict, Punjab.</small>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    Add a new Center form 
+                </div>
+                <div class="panel-body">
+                    <form name="addCenterForm">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-3" ng-class="{ 'has-error' : addCenterForm.sub_dist.$invalid && !addCenterForm.sub_dist.$pristine }">
+                                    <label>Sub District <span class="text-danger">*</span> <span ng-show="addCenterForm.sub_dist.$invalid && !addCenterForm.sub_dist.$pristine" class="text-danger">Required.</span></label>
+                                    <select class="form-control" required name="sub_dist" ng-model="cen.center_sub_district">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="d in sub_districts" value="{{d.sub_district_code}}">{{d.sub_district_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3" ng-class="{ 'has-error' : addCenterForm.block.$invalid && !addCenterForm.block.$pristine }">
+                                    <label>Blocks <span class="text-danger">*</span> <span ng-show="addCenterForm.block.$invalid && !addCenterForm.block.$pristine" class="text-danger">Required.</span></label>
+                                    <select class="form-control" name="block" required ng-model="cen.center_block">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="b in blocks" value="{{b.block_code}}">{{b.block_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3" ng-class="{ 'has-error' : addCenterForm.village.$invalid && !addCenterForm.village.$pristine }">
+                                    <label>Village <span class="text-danger">*</span> <span ng-show="addCenterForm.village.$invalid && !addCenterForm.village.$pristine" class="text-danger">Required.</span></label>
+                                    <select class="form-control" name="village" required ng-model="cen.center_village">
+                                        <option value="">-- Choose One --</option>
+                                        <option ng-repeat="v in villages" value="{{v.village_code}}">{{v.village_name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3" ng-class="{ 'has-error' : addCenterForm.pin.$invalid && !addCenterForm.pin.$pristine }">
+                                    <label>Pincode <span class="text-danger">*</span> <span ng-show="addCenterForm.pin.$invalid && !addCenterForm.pin.$pristine" class="text-danger">Valid Pin.</span></label>
+                                    <input class="form-control" type="number" name="pin" maxlength="6" required ng-model="cen.center_pincode" placeholder="Enter Pincode Here"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : addCenterForm.add.$invalid && !addCenterForm.add.$pristine }">
+                            <label>Address <span class="text-danger">*</span> <span ng-show="addCenterForm.add.$invalid && !addCenterForm.add.$pristine" class="text-danger">Required.</span></label>
+                            <textarea class="form-control" name="add" required ng-model="cen.center_address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary2" type="button" ng-click="addCenter()" ng-disabled="addCenterForm.$invalid">Add New Center</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Click "Add New Center" To Insert 
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 animated-panel fadeIn" style="animation-delay: 0.4s;">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-search"></i></button>
+                            </span>
+                            <input id="example-input1-group2" ng-model="search.center_address" class="form-control ng-pristine ng-valid ng-empty ng-touched" placeholder="Search By Address" type="text">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th class="col-xs-1">S. No.</th>
+                                <th>Address</th>
+                                <th class="col-xs-2">Created On</th>
+                                <th class="col-xs-1"></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="c in centers | filter:search">
+                                    <td>{{$index + 1}}</td>
+                                    <td>{{c.center_address}}, {{c.village_name}}, {{c.block_name}}, {{c.sub_district_name}}, {{c.district_name}}, {{c.state_name}} - {{c.center_pincode}}</td>
+                                    <td>{{c.created_on | date : format : "medium"}}</td>
+                                    <td>
+                                        <div data-toggle="buttons" class="btn-group">
+                                            <button class="btn btn-danger btn-xs">
+                                                    Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>    
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Add A Sub Service</h4>
+                <small class="font-bold">Add A Sub Service To <strong>{{ss_name}}</strong></small>
+            </div>
+            <div class="modal-body">
+                <form name="addSubServiceForm">
+                    <div class="form-group">
+                        <label>Sub Service Name</label>
+                        <input class="form-control" required ng-model="ss.servicename" placeholder="Enter name of the Sub Service"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="addSubService()" ng-disabled="addSubServiceForm.$invalid">Add Sub Service</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+
