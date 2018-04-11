@@ -78,7 +78,37 @@
                             <input class="form-control" readonly ng-model="application_details.firm_name">
                         </div>
                         <div class="form-group">
+                            <label>Firm Address</label>
+                            <input class="form-control" readonly ng-model="address_details.pob_address">
+                        </div>
+                        <div class="form-group">
                             <div class="row">
+                                    <div class="col-xs-4">
+                                        <label>Firm District</label>
+                                        <input class="form-control" readonly ng-model="address_details.district_name">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <label>Firm Tehsil</label>
+                                        <input class="form-control" readonly ng-model="address_details.sub_district_name">
+                                    </div>
+                                    <div class="col-xs-4" ng-if="address_details.region_type == 'Rural'">
+                                        <label>Firm Village</label>
+                                        <input class="form-control" readonly ng-model="address_details.village_name">
+                                    </div>
+                                    <div class="col-xs-4" ng-if="address_details.region_type == 'Urban'">
+                                        <label>Firm Wardno</label>
+                                        <input class="form-control" readonly ng-model="address_details.ward_number">
+                                    </div>
+                                    
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <label>Firm Pincode</label>
+                                    <input class="form-control" readonly ng-model="address_details.pincode">
+                                </div>
                                 <div class="col-xs-4">
                                     <label>Operation Type</label>
                                     <input class="form-control" readonly ng-model="application_details.firm_operation_type">
@@ -87,15 +117,16 @@
                                     <label>Firm Type</label>
                                     <input class="form-control" readonly ng-model="application_details.firm_type">
                                 </div>
-                                <div class="col-xs-4">
-                                    <label>Applicant's Capacity</label>
-                                    <input class="form-control" readonly ng-model="application_details.applicants_capacity">
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-4">
+                                    <label>Applicant's Capacity</label>
+                                    <input class="form-control" readonly ng-model="application_details.applicants_capacity">
+                                </div>
+                                <div class="col-xs-8">
                                     <label>
                                         Was the applicant ever convicted under the essential commodities
                                         act 1955 (10 of 1955)?
@@ -104,6 +135,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="form-group" ng-if="application_details.is_convicted_under_1955 == 'Y'">
                             <label>Details</label>
                             <input class="form-control" ng-model="application_details.conviction_details">

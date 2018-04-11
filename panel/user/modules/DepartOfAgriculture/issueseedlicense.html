@@ -134,12 +134,12 @@
                                                             <option ng-repeat="v in villages" value="{{v.village_code}}">{{v.village_name}}</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriSeedForm.pin.$invalid && !agriSeedForm.pin.$pristine }" ng-if="app.Regiontype == 'Urban'">
+                                                    <div class="col-lg-4" ng-class="{ 'has-error' : agriSeedForm.wardno.$invalid && !agriSeedForm.wardno.$pristine }" ng-if="app.Regiontype == 'Urban'">
                                                         <label>Ward Number
                                                             <span class="text-danger">*</span>
                                                             <span ng-show="agriSeedForm.wardno.$invalid && !agriSeedForm.wardno.$pristine" class="text-danger">Valid Pin.</span>
                                                         </label>
-                                                        <input class="form-control" type="number" max-length="6" name="wardno" maxlength="6" required ng-model="app.Wardno" placeholder="Enter Wardno Here"
+                                                        <input class="form-control" type="text" min-length="6" name="wardno" maxlength="6" required ng-model="app.Wardno" placeholder="Enter Wardno Here"
                                                         />
                                                     </div>
                                                     <div class="col-lg-4" ng-class="{ 'has-error' : agriSeedForm.pin.$invalid && !agriSeedForm.pin.$pristine }">
@@ -227,7 +227,7 @@
                                                                 <td>{{i.commodity_name}}</td>
                                                                 <td>{{i.added_on}}</td>
                                                                 <td>{{i.valid_upto}}</td>
-                                                                <td></td>
+                                                                <td><button class="btn btn-info btn-xs" ng-click="removeTB1($index)" type="button"></button></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -270,7 +270,7 @@
                                                         <tbody>
                                                             <tr ng-repeat="i in app.Storagedetails">
                                                                 <td>{{i.address_of_store}}</td>
-                                                                <td></td>
+                                                                <td><button class="btn btn-info btn-xs" ng-click="removeTB1($index)" type="button"></button></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>

@@ -184,8 +184,7 @@ angular.module('agricultureModule', ['authServices', 'configServices', 'notifica
     $scope.app.Districtid = $scope.app.firm_district;
     $scope.app.Tehsilid = $scope.app.firm_sub_district;
     $scope.app.Blockid = $scope.app.firm_block;*/
-    if($scope.app.Regiontype == 'Urban') $scope.app.Villageid = "";
-    if($scope.app.Regiontype == 'Rural') $scope.app.Wardno = "";
+    
     //$scope.app.Wardno = "1";
     //$scope.app.Pincode = "1";
     $scope.app.Storagedetails = [];
@@ -210,6 +209,7 @@ angular.module('agricultureModule', ['authServices', 'configServices', 'notifica
             Notification.error("Oops!", "Fill all the required fields");
             return;
         }
+       
         ($scope.app.Seeddetails).push({
             producer_name: $scope.producer,
             supplier_name: $scope.supplier,
@@ -220,6 +220,7 @@ angular.module('agricultureModule', ['authServices', 'configServices', 'notifica
             supplier_name_punjabi: "",
             commodity_name_punjabi: ""
         });
+    
 
         $scope.producer = "";
         $scope.supplier = "";
@@ -227,6 +228,14 @@ angular.module('agricultureModule', ['authServices', 'configServices', 'notifica
         $scope.added_on = "";
         $scope.valid_till = "";
         
+    };
+    $scope.removeTB1 = function(index)
+    {
+        $scope.app.Seeddetails.splice(index,1);
+    };
+    $scope.removeTB2 = function(index)
+    {
+        $scope.app.Storagedetails.splice(index,1);
     };
 
     $scope.addTB2 = function() {
@@ -242,12 +251,38 @@ angular.module('agricultureModule', ['authServices', 'configServices', 'notifica
     };
 
     $scope.add = function() {
-        
+        if($scope.producer && $scope.supplier && $scope.commodity && $scope.added_on && $scope.valid_till) {
+            ($scope.app.Seeddetails).push({
+                producer_name: $scope.producer,
+                supplier_name: $scope.supplier,
+                commodity_name: $scope.commodity,
+                added_on: $scope.added_on,
+                valid_upto: $scope.valid_till,
+                producer_name_punjabi: "",
+                supplier_name_punjabi: "",
+                commodity_name_punjabi: ""
+            });
+            $scope.producer = "";
+            $scope.supplier = "";
+            $scope.commodity = "";
+            $scope.added_on = "";
+            $scope.valid_till = "";
+
+        }
+        if($scope.storage) {
+            ($scope.app.Storagedetails).push({
+                address_of_store: $scope.storage,
+                address_of_store_punjabi: ""
+            });
+            $scope.storage = "";
+        }
         if(($scope.app.Seeddetails).length == 0 || ($scope.app.Storagedetails).length == 0) {
             Notification.error("Oops!", "Add Seed Details and/or Storage Details.");
             return;
         }
         if($scope.app.Isconvictedunder1955 == 'N') $scope.app.Convictiondetails = "";
+        if($scope.app.Regiontype == 'Urban') $scope.app.Villageid = 0;
+        if($scope.app.Regiontype == 'Rural') $scope.app.Wardno = "";
         AgricultureFactory.add({obj: $scope.app}).then(function(data) {
             console.log(data.data);
             if(data.data[0].response == 1) {
